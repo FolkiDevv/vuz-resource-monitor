@@ -3,7 +3,17 @@
 set -e
 
 FREQUENCY=10
-LOG_FILE=monitor.log
+
+if [ "$1" != "" ]; then
+    if [ -w "$1" ]; then
+        LOG_FILE="$1"
+    else
+        echo "Ошибка: файл '$1' недоступен для записи" >&2
+        exit 1
+    fi
+else
+    LOG_FILE=monitor.log
+fi
 
 print_monitor() {
     date "+--- %Y-%m-%d %H:%M:%S ---"
